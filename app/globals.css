@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0d1b2a;
+  --foreground: #f5f3ef;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-display);
+}
+
+* {
+  border-color: transparent;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.cinematic-image {
+  filter: saturate(0.85) contrast(1.05) brightness(1.02) sepia(0.08);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
