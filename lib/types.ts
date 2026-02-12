@@ -85,3 +85,28 @@ export interface SocialLink {
   href: string;
 }
 
+export interface VideoItem {
+  id: string;
+  title: string;
+  description: string;
+  duration: string;
+  category: string;
+  publishedAt: string;
+  embedUrl: string;
+  thumbnail: string;
+}
+
+export interface LivestreamEvent {
+  id: string;
+  title: string;
+  startsAt: string;
+  status: "live" | "scheduled" | "ended";
+  embedUrl: string;
+  description?: string;
+}
+
+export interface CmsPayload<T> {
+  data: T;
+  updatedAt: string;
+}
+

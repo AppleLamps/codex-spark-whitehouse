@@ -2,9 +2,21 @@ import { Hero } from "@/components/sections/Hero";
 import { NewsGrid } from "@/components/sections/NewsGrid";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { newsArticles } from "@/lib/data";
+import { getNewsArticles } from "@/lib/cms";
+import { buildMetadata } from "@/lib/seo";
 
-export default function NewsPage() {
+export const metadata = buildMetadata({
+  title: "Newsroom | The White House",
+  description:
+    "News releases, briefings, executive actions, fact sheets, and remarks from administration leadership and White House offices.",
+  path: "/news",
+  image: "/images/hero/news-hero.jpg",
+  keywords: ["white house", "news", "briefings", "press releases", "executive orders"],
+});
+
+export default async function NewsPage() {
+  const newsArticles = await getNewsArticles();
+
   return (
     <>
       <Hero

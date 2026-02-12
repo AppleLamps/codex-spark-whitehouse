@@ -3,8 +3,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { GalleryCategory, GalleryItem } from "@/lib/types";
+import { resolveHighResolutionImage } from "@/lib/utils";
 
 const filters: Array<"All" | GalleryCategory> = ["All", "Events", "The Building", "Holidays"];
 
@@ -15,6 +16,7 @@ interface PhotoGridProps {
 export function PhotoGrid({ items }: PhotoGridProps) {
   const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>("All");
   const [activeImage, setActiveImage] = useState<GalleryItem | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const filtered = useMemo(() => {
     if (activeFilter === "All") {
@@ -22,6 +24,29 @@ export function PhotoGrid({ items }: PhotoGridProps) {
     }
     return items.filter((item) => item.category === activeFilter);
   }, [activeFilter, items]);
+
+  useEffect(() => {
+    if (!activeImage) {
+      return;
+    }
+
+    const previous = document.activeElement as HTMLElement | null;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveImage(null);
+      }
+    };
+
+    closeButtonRef.current?.focus();
+    document.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+      previous?.focus();
+    };
+  }, [activeImage]);
 
   return (
     <>
@@ -51,7 +76,13 @@ export function PhotoGrid({ items }: PhotoGridProps) {
             className="mb-4 block w-full break-inside-avoid overflow-hidden rounded-xl border border-white/10 bg-[#1B2A4A] text-left"
           >
             <div className="relative min-h-[220px] bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
-              <Image src={item.image} alt={item.alt} width={900} height={700} className="cinematic-image h-auto w-full object-cover" />
+              <Image
+                src={resolveHighResolutionImage(item.image, 900, 700)}
+                alt={item.alt}
+                width={900}
+                height={700}
+                className="cinematic-image h-auto w-full object-cover"
+              />
             </div>
             <div className="px-4 py-3">
               <p className="text-sm text-[#F5F3EF]">{item.caption}</p>
@@ -64,6 +95,9 @@ export function PhotoGrid({ items }: PhotoGridProps) {
       <AnimatePresence>
         {activeImage ? (
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`gallery-image-${activeImage.id}`}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -79,6 +113,7 @@ export function PhotoGrid({ items }: PhotoGridProps) {
               onClick={(event) => event.stopPropagation()}
             >
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={() => setActiveImage(null)}
                 className="absolute right-3 top-3 z-10 rounded-full bg-black/40 p-2 text-white transition hover:bg-black/70"
@@ -87,16 +122,18 @@ export function PhotoGrid({ items }: PhotoGridProps) {
                 <X className="h-4 w-4" />
               </button>
               <div className="relative bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
-                <Image
-                  src={activeImage.image}
-                  alt={activeImage.alt}
-                  width={1600}
-                  height={1100}
+              <Image
+                src={resolveHighResolutionImage(activeImage.image, 1600, 1100)}
+                alt={activeImage.alt}
+                width={1600}
+                height={1100}
                   className="cinematic-image h-auto w-full object-cover"
                 />
               </div>
               <div className="p-4">
-                <p className="text-sm text-[#F5F3EF]">{activeImage.caption}</p>
+                <p id={`gallery-image-${activeImage.id}`} className="text-sm text-[#F5F3EF]">
+                  {activeImage.caption}
+                </p>
               </div>
             </motion.div>
           </motion.div>

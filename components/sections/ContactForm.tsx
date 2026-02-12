@@ -24,6 +24,8 @@ export function ContactForm() {
   const [form, setForm] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
@@ -53,17 +55,37 @@ export function ContactForm() {
     setSubmitted(false);
   };
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors = validate();
     setErrors(nextErrors);
+    setSubmitError("");
 
     if (Object.keys(nextErrors).length > 0) {
       return;
     }
 
-    setSubmitted(true);
-    setForm(initialState);
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const payload = (await response.json()) as { error?: string };
+
+      if (!response.ok) {
+        setSubmitError(payload.error || "Unable to send your message right now. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
+      setForm(initialState);
+    } catch {
+      setSubmitError("Network error. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -75,9 +97,14 @@ export function ContactForm() {
         </div>
       ) : null}
 
+      {submitError ? <p className="mb-4 text-sm text-red-200">{submitError}</p> : null}
+
       <form className="space-y-4" onSubmit={onSubmit} noValidate>
         <div>
-          <label htmlFor="name" className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]">
+          <label
+            htmlFor="name"
+            className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]"
+          >
             Name
           </label>
           <input
@@ -91,7 +118,10 @@ export function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="email" className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]">
+          <label
+            htmlFor="email"
+            className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]"
+          >
             Email
           </label>
           <input
@@ -106,7 +136,10 @@ export function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="subject" className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]">
+          <label
+            htmlFor="subject"
+            className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]"
+          >
             Subject
           </label>
           <select
@@ -124,7 +157,10 @@ export function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="message" className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]">
+          <label
+            htmlFor="message"
+            className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]"
+          >
             Message
           </label>
           <textarea
@@ -138,11 +174,10 @@ export function ContactForm() {
           {errors.message ? <p className="mt-1 text-xs text-red-300">{errors.message}</p> : null}
         </div>
 
-        <Button type="submit" className="w-full sm:w-auto">
-          Send Message
+        <Button type="submit" className="w-full sm:w-auto" disabled={isSubmitting}>
+          {isSubmitting ? "Sending..." : "Send Message"}
         </Button>
       </form>
     </div>
   );
 }
-

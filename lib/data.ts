@@ -6,9 +6,11 @@ import type {
   KeyInitiative,
   NavigationGroup,
   NewsArticle,
+  VideoItem,
   Priority,
   SocialLink,
   TimelineMilestone,
+  LivestreamEvent,
 } from "@/lib/types";
 
 export const topFeaturedCards: FeaturedCard[] = [
@@ -574,8 +576,8 @@ export const navigationGroups: NavigationGroup[] = [
     title: "Media",
     items: [
       { label: "Photo Gallery", href: "/gallery" },
-      { label: "Video Library", href: "#" },
-      { label: "Livestream", href: "#" },
+      { label: "Video Library", href: "/videos" },
+      { label: "Livestream", href: "/livestream" },
       { label: "White House Wire", href: "/news" },
     ],
   },
@@ -599,8 +601,8 @@ export const navigationGroups: NavigationGroup[] = [
     items: [
       { label: "Contact", href: "/contact" },
       { label: "Visit", href: "/about" },
-      { label: "Internships", href: "#" },
-      { label: "Find Your Representative", href: "#" },
+      { label: "Internships", href: "/internships" },
+      { label: "Find Your Representative", href: "/representatives" },
     ],
   },
 ];
@@ -615,27 +617,92 @@ export const mainNav = [
 ] as const;
 
 export const socialLinks: SocialLink[] = [
-  { platform: "X", href: "#" },
-  { platform: "Instagram", href: "#" },
-  { platform: "TikTok", href: "#" },
-  { platform: "Truth Social", href: "#" },
-  { platform: "Rumble", href: "#" },
-  { platform: "Facebook", href: "#" },
-  { platform: "YouTube", href: "#" },
+  { platform: "X", href: "https://x.com/WhiteHouse" },
+  { platform: "Instagram", href: "https://instagram.com/whitehouse" },
+  { platform: "TikTok", href: "https://www.tiktok.com/@whitehouse" },
+  { platform: "Truth Social", href: "https://truthsocial.com/home" },
+  { platform: "Rumble", href: "https://rumble.com/c/whitehouse" },
+  { platform: "Facebook", href: "https://www.facebook.com/WhiteHouse" },
+  { platform: "YouTube", href: "https://www.youtube.com/WhiteHouse" },
 ];
 
 export const footerColumns = {
-  about: ["Administration", "Contact", "Internships", "Stay Informed", "Privacy Policy"],
-  media: ["News", "Gallery", "Video Library", "White House Wire"],
+  about: [
+    { label: "Administration", href: "/administration" },
+    { label: "Contact", href: "/contact" },
+    { label: "Internships", href: "/internships" },
+    { label: "Stay Informed", href: "/contact" },
+    { label: "Privacy Policy", href: "/about" },
+  ],
+  media: [
+    { label: "News", href: "/news" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "Video Library", href: "/videos" },
+    { label: "White House Wire", href: "/news" },
+  ],
   initiatives: [
-    "Freedom 250",
-    "Investments",
-    "Working Families Tax Cuts",
-    "AI.Gov",
-    "DOGE",
+    { label: "Freedom 250", href: "/priorities#maha" },
+    { label: "Investments", href: "/priorities#energy" },
+    { label: "Working Families Tax Cuts", href: "/priorities#economy" },
+    { label: "AI.Gov", href: "/priorities#ai" },
+    { label: "DOGE", href: "/priorities#doge" },
   ],
 } as const;
 
 export const heroTagline =
   "President Donald J. Trump and Vice President JD Vance are committed to lowering costs for all Americans, securing our borders, unleashing American energy dominance, restoring peace through strength, and making all Americans safe and secure once again.";
+
+export const mediaVideos: VideoItem[] = [
+  {
+    id: "video-1",
+    title: "White House Briefing: Economic Momentum and Energy Reform",
+    description:
+      "A recorded update on administration priorities including job growth, manufacturing expansion, and infrastructure investments.",
+    duration: "12:10",
+    category: "Briefing",
+    publishedAt: "February 6, 2026",
+    embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    thumbnail: "/images/news/press-room.jpg",
+  },
+  {
+    id: "video-2",
+    title: "State Dining Room Policy Speech",
+    description: "Highlights from a diplomatic engagement focused on workforce growth and trade cooperation.",
+    duration: "18:35",
+    category: "Event",
+    publishedAt: "January 30, 2026",
+    embedUrl: "https://www.youtube.com/embed/ysz5S6PUM-U",
+    thumbnail: "/images/news/investments.jpg",
+  },
+  {
+    id: "video-3",
+    title: "Administration Launches AI Infrastructure Roundtable",
+    description:
+      "Industry partners and administration leaders discuss AI policy, permitting, and domestic compute expansion.",
+    duration: "09:20",
+    category: "Policy",
+    publishedAt: "January 21, 2026",
+    embedUrl: "https://www.youtube.com/embed/jNQXAC9IVRw",
+    thumbnail: "/images/news/ai-action.jpg",
+  },
+];
+
+export const livestreamSchedule: LivestreamEvent[] = [
+  {
+    id: "live-main",
+    title: "White House Press Briefing",
+    status: "live",
+    description: "Daily briefing with administration officials and policy leads.",
+    startsAt: "Every weekday at 3:00 PM ET",
+    embedUrl: "https://www.youtube.com/embed/live_stream?channel=UC0J2Qd9JYq6x1gL2",
+  },
+  {
+    id: "live-cabinet",
+    title: "Cabinet Press Segment",
+    status: "scheduled",
+    description: "Cabinet-wide update on implementation and budget milestones.",
+    startsAt: "Thursday, 2:00 PM ET",
+    embedUrl: "https://www.youtube.com/embed/live_stream?channel=UC0J2Qd9JYq6x1gL2",
+  },
+];
 

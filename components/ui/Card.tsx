@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { resolveHighResolutionImage } from "@/lib/utils";
 
 interface CardProps {
   title: string;
@@ -23,7 +24,7 @@ export function Card({ title, image, href, alt, subtitle, className, priority = 
     >
       <div className="relative h-56 bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
         <Image
-          src={image}
+          src={resolveHighResolutionImage(image)}
           alt={alt}
           fill
           className="cinematic-image object-cover transition duration-500 group-hover:scale-105"

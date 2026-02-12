@@ -4,9 +4,22 @@ import { Hero } from "@/components/sections/Hero";
 import { buttonClasses } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { keyInitiatives, priorities } from "@/lib/data";
+import { getKeyInitiatives, getPriorities } from "@/lib/cms";
+import { resolveHighResolutionImage } from "@/lib/utils";
+import { buildMetadata } from "@/lib/seo";
 
-export default function PrioritiesPage() {
+export const metadata = buildMetadata({
+  title: "Priorities | The White House",
+  description: "A full listing of major White House priorities, initiatives, and policy directions for the administration.",
+  path: "/priorities",
+  image: "/images/hero/priorities-hero.jpg",
+  keywords: ["white house priorities", "policy", "national security", "economy", "healthcare"],
+});
+
+export default async function PrioritiesPage() {
+  const priorities = await getPriorities();
+  const keyInitiatives = await getKeyInitiatives();
+
   return (
     <>
       <Hero
@@ -28,7 +41,12 @@ export default function PrioritiesPage() {
                 className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#1B2A4A]"
               >
                 <div className="absolute inset-0 bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
-                  <Image src={priority.image} alt={priority.alt} fill className="cinematic-image object-cover" />
+                  <Image
+                    src={resolveHighResolutionImage(priority.image)}
+                    alt={priority.alt}
+                    fill
+                    className="cinematic-image object-cover"
+                  />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#0D1B2A]/85 via-[#0D1B2A]/65 to-[#0D1B2A]/20" />
                 <div className="relative z-10 px-6 py-10 sm:px-10">
@@ -37,7 +55,7 @@ export default function PrioritiesPage() {
                     {priority.title}
                   </h2>
                   <p className="mt-4 max-w-3xl text-sm text-[#F5F3EF] sm:text-base">{priority.description}</p>
-                  <Link href="#" className={buttonClasses("outline", "md", "mt-6")}>
+                  <Link href={`/priorities/${priority.id}`} className={buttonClasses("outline", "md", "mt-6")}>
                     Learn More
                   </Link>
                 </div>

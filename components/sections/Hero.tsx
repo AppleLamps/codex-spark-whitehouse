@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { ArrowDown } from "lucide-react";
 import { useRef } from "react";
+import { resolveHighResolutionImage } from "@/lib/utils";
 
 interface HeroProps {
   title: string;
@@ -29,30 +30,36 @@ export function Hero({
     target: containerRef,
     offset: ["start start", "end start"],
   });
+  const prefersReducedMotion = useReducedMotion();
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "16%"]);
+  const animatedY = prefersReducedMotion ? "0%" : y;
+  const baseTransition = prefersReducedMotion ? { duration: 0 } : { duration: 0.6 };
+  const paragraphTransition = prefersReducedMotion ? { duration: 0 } : { duration: 0.7, delay: 0.1 };
+  const hiddenState = prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 };
+  const visibleState = prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 };
 
   return (
     <section ref={containerRef} className={`relative overflow-hidden ${minHeight}`}>
-      <motion.div style={{ y }} className="absolute inset-0 bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
-        <Image src={image} alt={alt} fill priority={priority} className="cinematic-image object-cover" />
+      <motion.div style={{ y: animatedY }} className="absolute inset-0 bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
+        <Image src={resolveHighResolutionImage(image)} alt={alt} fill priority={priority} className="cinematic-image object-cover" />
       </motion.div>
 
       <div className="absolute inset-0 bg-gradient-to-r from-[#0D1B2A]/85 via-[#0D1B2A]/55 to-[#0D1B2A]/25" />
 
       <div className="relative z-10 mx-auto flex min-h-[78svh] w-full max-w-[1280px] flex-col justify-end px-4 pb-16 pt-32 sm:px-6 lg:px-8">
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={hiddenState}
+          animate={visibleState}
+          transition={baseTransition}
           className="max-w-4xl font-display text-5xl uppercase leading-[0.9] text-white sm:text-6xl md:text-7xl"
         >
           {title}
         </motion.h1>
         {tagline ? (
           <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            initial={hiddenState}
+            animate={visibleState}
+            transition={paragraphTransition}
             className="mt-5 max-w-4xl text-sm text-[#F5F3EF] sm:text-base md:text-lg"
           >
             {tagline}

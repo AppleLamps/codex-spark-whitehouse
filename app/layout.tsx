@@ -3,6 +3,7 @@ import { Inter, Oswald } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import "./globals.css";
+import { siteName, siteUrl } from "@/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,8 +19,15 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "The White House - Fictional Demo",
+  metadataBase: new URL(siteUrl),
+  title: `${siteName} - Fictional Demo`,
   description: "A cinematic White House website mock built as a design and technology demonstration.",
+  openGraph: {
+    siteName,
+    title: `${siteName} - Fictional Demo`,
+    description: "A cinematic White House website mock built as a design and technology demonstration.",
+    url: siteUrl,
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

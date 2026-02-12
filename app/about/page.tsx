@@ -4,6 +4,17 @@ import { Hero } from "@/components/sections/Hero";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { timelineMilestones } from "@/lib/data";
+import { resolveHighResolutionImage } from "@/lib/utils";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "About | The White House",
+  description:
+    "History, constitutional structure, and the milestones shaping the executive residence and the institution of the presidency.",
+  path: "/about",
+  image: "/images/hero/about-hero.jpg",
+  keywords: ["about", "white house history", "constitution", "timeline", "governance"],
+});
 
 export default function AboutPage() {
   return (
@@ -63,7 +74,13 @@ export default function AboutPage() {
       <section className="bg-[#0D1B2A] py-14" id="founding">
         <Container className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
-            <Image src="/images/about/founding.jpg" alt="Historic patriotic scene representing America 250" width={1200} height={900} className="cinematic-image h-auto w-full object-cover" />
+            <Image
+              src={resolveHighResolutionImage("/images/about/founding.jpg", 1200, 900)}
+              alt="Historic patriotic scene representing America 250"
+              width={1200}
+              height={900}
+              className="cinematic-image h-auto w-full object-cover"
+            />
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]">America&apos;s Founding</p>

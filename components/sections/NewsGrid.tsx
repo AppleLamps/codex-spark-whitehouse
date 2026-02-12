@@ -22,6 +22,7 @@ interface NewsGridProps {
 
 export function NewsGrid({ articles }: NewsGridProps) {
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>("All");
+  const [visibleCount, setVisibleCount] = useState(6);
 
   const filtered = useMemo(() => {
     if (activeTab === "All") {
@@ -29,6 +30,18 @@ export function NewsGrid({ articles }: NewsGridProps) {
     }
     return articles.filter((article) => article.category === activeTab);
   }, [activeTab, articles]);
+  const visibleNews = useMemo(() => {
+    const sorted = [...filtered].sort((left, right) => {
+      const leftDate = Date.parse(left.date);
+      const rightDate = Date.parse(right.date);
+      if (Number.isNaN(leftDate) || Number.isNaN(rightDate)) {
+        return 0;
+      }
+      return rightDate - leftDate;
+    });
+    return sorted.slice(0, visibleCount);
+  }, [filtered, visibleCount]);
+  const hasMore = visibleCount < filtered.length;
 
   const featured = articles.filter((article) => article.featured);
 
@@ -43,7 +56,7 @@ export function NewsGrid({ articles }: NewsGridProps) {
               title={article.title}
               image={article.image}
               alt={article.alt}
-              href="#"
+              href={`/news/${article.id}`}
               subtitle={article.excerpt}
             />
           ))}
@@ -56,7 +69,10 @@ export function NewsGrid({ articles }: NewsGridProps) {
             <button
               key={tab}
               type="button"
-              onClick={() => setActiveTab(tab)}
+              onClick={() => {
+                setActiveTab(tab);
+                setVisibleCount(6);
+              }}
               className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] transition ${
                 activeTab === tab
                   ? "bg-[#D4A843] text-[#0D1B2A]"
@@ -69,7 +85,7 @@ export function NewsGrid({ articles }: NewsGridProps) {
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((article, index) => (
+          {visibleNews.map((article, index) => (
             <motion.article
               key={article.id}
               initial={{ opacity: 0, y: 20 }}
@@ -82,7 +98,7 @@ export function NewsGrid({ articles }: NewsGridProps) {
                 title={article.title}
                 image={article.image}
                 alt={article.alt}
-                href="#"
+                href={`/news/${article.id}`}
                 className="rounded-none border-0 shadow-none"
               />
               <div className="space-y-3 p-4">
@@ -91,13 +107,26 @@ export function NewsGrid({ articles }: NewsGridProps) {
                   <p className="text-xs text-[#E8E6E1]">{article.date}</p>
                 </div>
                 <p className="text-sm text-[#F5F3EF]">{article.excerpt}</p>
-                <Link href="#" className="inline-flex text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]">
+                <Link
+                  href={`/news/${article.id}`}
+                  className="inline-flex text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]"
+                >
                   Read more
                 </Link>
               </div>
             </motion.article>
           ))}
         </div>
+
+        {hasMore ? (
+          <button
+            type="button"
+            onClick={() => setVisibleCount((current) => current + 6)}
+            className="mt-6 rounded-full border border-[#D4A843] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#D4A843]"
+          >
+            Load more
+          </button>
+        ) : null}
       </div>
     </div>
   );

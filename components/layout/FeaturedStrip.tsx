@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { FeaturedCard } from "@/lib/types";
+import { resolveHighResolutionImage } from "@/lib/utils";
 
 interface FeaturedStripProps {
   cards: FeaturedCard[];
@@ -29,7 +30,7 @@ export function FeaturedStrip({ cards, className }: FeaturedStripProps) {
             >
               <div className="relative h-28 bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
                 <Image
-                  src={card.image}
+                  src={resolveHighResolutionImage(card.image, 240, 200)}
                   alt={card.alt}
                   fill
                   className="cinematic-image object-cover transition duration-500 group-hover:scale-105"

@@ -2,6 +2,15 @@ import { Hero } from "@/components/sections/Hero";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Contact | The White House",
+  description: "Send comments and inquiries to the administration contact channels.",
+  path: "/contact",
+  image: "/images/hero/contact-hero.jpg",
+  keywords: ["contact", "white house", "message", "comments", "help"],
+});
 
 export default function ContactPage() {
   return (

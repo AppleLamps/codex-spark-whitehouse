@@ -2,9 +2,20 @@ import { Hero } from "@/components/sections/Hero";
 import { Container } from "@/components/ui/Container";
 import { PhotoGrid } from "@/components/ui/PhotoGrid";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { galleryItems } from "@/lib/data";
+import { getGalleryItems } from "@/lib/cms";
+import { buildMetadata } from "@/lib/seo";
 
-export default function GalleryPage() {
+export const metadata = buildMetadata({
+  title: "Photo Gallery | The White House",
+  description: "Official White House imagery from events, building highlights, and holiday moments.",
+  path: "/gallery",
+  image: "/images/hero/gallery-hero.jpg",
+  keywords: ["white house gallery", "press photos", "white house events", "federal photo archive"],
+});
+
+export default async function GalleryPage() {
+  const galleryItems = await getGalleryItems();
+
   return (
     <>
       <Hero

@@ -3,9 +3,21 @@ import { Hero } from "@/components/sections/Hero";
 import { PrioritiesGrid } from "@/components/sections/PrioritiesGrid";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { heroTagline, priorities, topFeaturedCards } from "@/lib/data";
+import { getPriorities } from "@/lib/cms";
+import { topFeaturedCards, heroTagline } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
 
-export default function HomePage() {
+export const metadata = buildMetadata({
+  title: "The White House | Demo Site",
+  description: "A cinematic interface for White House announcements, administration priorities, and official updates.",
+  path: "/",
+  image: "/images/hero/home-hero.jpg",
+  keywords: ["white house", "government", "administration", "priorities", "news"],
+});
+
+export default async function HomePage() {
+  const priorities = await getPriorities();
+
   return (
     <>
       <Hero

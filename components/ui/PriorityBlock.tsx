@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import type { Priority } from "@/lib/types";
+import { resolveHighResolutionImage } from "@/lib/utils";
 
 interface PriorityBlockProps {
   priority: Priority;
@@ -20,7 +21,12 @@ export function PriorityBlock({ priority }: PriorityBlockProps) {
       id={priority.id}
     >
       <div className="absolute inset-0 bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
-        <Image src={priority.image} alt={priority.alt} fill className="cinematic-image object-cover" />
+        <Image
+          src={resolveHighResolutionImage(priority.image)}
+          alt={priority.alt}
+          fill
+          className="cinematic-image object-cover"
+        />
       </div>
       <div className="absolute inset-0 bg-gradient-to-r from-[#0D1B2A]/85 via-[#0D1B2A]/45 to-transparent" />
       <div className="relative z-10 mx-auto flex min-h-[42svh] w-full max-w-[1280px] flex-col justify-end px-4 py-10 sm:px-6 lg:px-8">
