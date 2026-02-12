@@ -638,3 +638,4 @@ export const footerColumns = {
 
 export const heroTagline =
   "President Donald J. Trump and Vice President JD Vance are committed to lowering costs for all Americans, securing our borders, unleashing American energy dominance, restoring peace through strength, and making all Americans safe and secure once again.";
+

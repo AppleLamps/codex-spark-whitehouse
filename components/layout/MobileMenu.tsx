@@ -24,7 +24,7 @@ export function MobileMenu({ open, groups, socialLinks, onClose }: MobileMenuPro
         >
           <div className="mx-auto flex h-full max-w-6xl flex-col px-4 py-6 sm:px-6">
             <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
-              <p className="font-[family-name:var(--font-display)] text-2xl uppercase text-white">Menu</p>
+              <p className="font-display text-2xl uppercase text-white">Menu</p>
               <button
                 type="button"
                 onClick={onClose}
@@ -73,3 +73,4 @@ export function MobileMenu({ open, groups, socialLinks, onClose }: MobileMenuPro
     </AnimatePresence>
   );
 }
+

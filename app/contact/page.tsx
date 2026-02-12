@@ -26,7 +26,7 @@ export default function ContactPage() {
             </article>
 
             <aside className="rounded-2xl border border-white/10 bg-[#10213f] p-6 sm:p-8">
-              <h2 className="font-[family-name:var(--font-display)] text-3xl uppercase text-white">Mailing Address</h2>
+              <h2 className="font-display text-3xl uppercase text-white">Mailing Address</h2>
               <p className="mt-4 text-sm text-[#E8E6E1]">
                 The White House
                 <br />
@@ -35,10 +35,10 @@ export default function ContactPage() {
                 Washington, DC 20500
               </p>
 
-              <h3 className="mt-8 font-[family-name:var(--font-display)] text-2xl uppercase text-white">Phone</h3>
+              <h3 className="mt-8 font-display text-2xl uppercase text-white">Phone</h3>
               <p className="mt-3 text-sm text-[#E8E6E1]">Comments: 202-456-1111</p>
 
-              <h3 className="mt-8 font-[family-name:var(--font-display)] text-2xl uppercase text-white">Office Hours</h3>
+              <h3 className="mt-8 font-display text-2xl uppercase text-white">Office Hours</h3>
               <p className="mt-3 text-sm text-[#E8E6E1]">Monday-Friday, 9:00 AM - 5:00 PM ET (mock schedule)</p>
             </aside>
           </div>
@@ -47,3 +47,4 @@ export default function ContactPage() {
     </>
   );
 }
+

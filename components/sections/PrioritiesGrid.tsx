@@ -14,3 +14,4 @@ export function PrioritiesGrid({ items }: PrioritiesGridProps) {
     </div>
   );
 }
+

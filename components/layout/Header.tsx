@@ -51,7 +51,7 @@ export function Header() {
 
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="shrink-0">
-            <p className="font-[family-name:var(--font-display)] text-3xl uppercase leading-none tracking-tight">The White House</p>
+            <p className="font-display text-3xl uppercase leading-none tracking-tight">The White House</p>
           </Link>
 
           <nav className="hidden items-center gap-5 lg:flex">
@@ -105,3 +105,4 @@ export function Header() {
     </header>
   );
 }
+

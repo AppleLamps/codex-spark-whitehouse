@@ -19,13 +19,13 @@ export function PriorityBlock({ priority }: PriorityBlockProps) {
       className="relative min-h-[42svh] overflow-hidden border-y border-white/10"
       id={priority.id}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1B2A4A] to-[#2C5282]">
+      <div className="absolute inset-0 bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
         <Image src={priority.image} alt={priority.alt} fill className="cinematic-image object-cover" />
       </div>
       <div className="absolute inset-0 bg-gradient-to-r from-[#0D1B2A]/85 via-[#0D1B2A]/45 to-transparent" />
       <div className="relative z-10 mx-auto flex min-h-[42svh] w-full max-w-[1280px] flex-col justify-end px-4 py-10 sm:px-6 lg:px-8">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D4A843]">Priority</p>
-        <h3 className="max-w-4xl font-[family-name:var(--font-display)] text-4xl uppercase leading-none text-white sm:text-5xl md:text-6xl">
+        <h3 className="max-w-4xl font-display text-4xl uppercase leading-none text-white sm:text-5xl md:text-6xl">
           {priority.title}
         </h3>
         <p className="mt-4 max-w-3xl text-sm text-[#F5F3EF] sm:text-base">{priority.description}</p>
@@ -39,3 +39,4 @@ export function PriorityBlock({ priority }: PriorityBlockProps) {
     </motion.article>
   );
 }
+

@@ -33,7 +33,7 @@ export function Hero({
 
   return (
     <section ref={containerRef} className={`relative overflow-hidden ${minHeight}`}>
-      <motion.div style={{ y }} className="absolute inset-0 bg-gradient-to-br from-[#1B2A4A] to-[#2C5282]">
+      <motion.div style={{ y }} className="absolute inset-0 bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
         <Image src={image} alt={alt} fill priority={priority} className="cinematic-image object-cover" />
       </motion.div>
 
@@ -44,7 +44,7 @@ export function Hero({
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl font-[family-name:var(--font-display)] text-5xl uppercase leading-[0.9] text-white sm:text-6xl md:text-7xl"
+          className="max-w-4xl font-display text-5xl uppercase leading-[0.9] text-white sm:text-6xl md:text-7xl"
         >
           {title}
         </motion.h1>
@@ -71,3 +71,4 @@ export function Hero({
     </section>
   );
 }
+

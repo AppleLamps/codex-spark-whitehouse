@@ -27,7 +27,7 @@ export function FeaturedStrip({ cards, className }: FeaturedStripProps) {
               href={card.href}
               className="group relative block overflow-hidden rounded-xl border border-white/20 bg-[#1B2A4A]"
             >
-              <div className="relative h-28 bg-gradient-to-br from-[#1B2A4A] to-[#2C5282]">
+              <div className="relative h-28 bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
                 <Image
                   src={card.image}
                   alt={card.alt}
@@ -36,7 +36,7 @@ export function FeaturedStrip({ cards, className }: FeaturedStripProps) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               </div>
-              <p className="absolute inset-x-0 bottom-0 px-3 py-2 font-[family-name:var(--font-display)] text-lg uppercase leading-none text-white">
+              <p className="absolute inset-x-0 bottom-0 px-3 py-2 font-display text-lg uppercase leading-none text-white">
                 {card.title}
               </p>
             </Link>
@@ -46,3 +46,4 @@ export function FeaturedStrip({ cards, className }: FeaturedStripProps) {
     </div>
   );
 }
+

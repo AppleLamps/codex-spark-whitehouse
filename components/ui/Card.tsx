@@ -21,7 +21,7 @@ export function Card({ title, image, href, alt, subtitle, className, priority = 
         className,
       )}
     >
-      <div className="relative h-56 bg-gradient-to-br from-[#1B2A4A] to-[#2C5282]">
+      <div className="relative h-56 bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
         <Image
           src={image}
           alt={alt}
@@ -32,9 +32,10 @@ export function Card({ title, image, href, alt, subtitle, className, priority = 
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
       </div>
       <div className="absolute inset-x-0 bottom-0 p-4 text-white">
-        <p className="font-[family-name:var(--font-display)] text-2xl uppercase leading-none tracking-tight">{title}</p>
+        <p className="font-display text-2xl uppercase leading-none tracking-tight">{title}</p>
         {subtitle ? <p className="mt-2 text-sm text-[#F5F3EF]">{subtitle}</p> : null}
       </div>
     </Link>
   );
 }
+

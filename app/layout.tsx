@@ -12,7 +12,7 @@ const inter = Inter({
 
 const oswald = Oswald({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-oswald",
   display: "swap",
   weight: ["400", "500", "700"],
 });
@@ -36,3 +36,5 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
+
+

@@ -20,7 +20,7 @@ export function Footer() {
       <Container>
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr_1fr_1.2fr]">
           <div>
-            <p className="mb-4 font-[family-name:var(--font-display)] text-xl uppercase text-white">About</p>
+            <p className="mb-4 font-display text-xl uppercase text-white">About</p>
             <div className="space-y-2 text-sm">
               {footerColumns.about.map((item) => (
                 <Link key={item} href="#" className="block transition hover:text-[#D4A843]">
@@ -31,7 +31,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="mb-4 font-[family-name:var(--font-display)] text-xl uppercase text-white">Media</p>
+            <p className="mb-4 font-display text-xl uppercase text-white">Media</p>
             <div className="space-y-2 text-sm">
               {footerColumns.media.map((item) => (
                 <Link key={item} href="#" className="block transition hover:text-[#D4A843]">
@@ -42,7 +42,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="mb-4 font-[family-name:var(--font-display)] text-xl uppercase text-white">Initiatives</p>
+            <p className="mb-4 font-display text-xl uppercase text-white">Initiatives</p>
             <div className="space-y-2 text-sm">
               {footerColumns.initiatives.map((item) => (
                 <Link key={item} href="#" className="block transition hover:text-[#D4A843]">
@@ -53,7 +53,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="mb-4 font-[family-name:var(--font-display)] text-xl uppercase text-white">Stay Informed</p>
+            <p className="mb-4 font-display text-xl uppercase text-white">Stay Informed</p>
             <p className="mb-4 text-sm text-[#E8E6E1]">Receive White House updates, announcements, and event highlights.</p>
             <form className="flex gap-2">
               <input
@@ -89,3 +89,4 @@ export function Footer() {
     </footer>
   );
 }
+

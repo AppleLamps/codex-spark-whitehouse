@@ -50,7 +50,7 @@ export function PhotoGrid({ items }: PhotoGridProps) {
             onClick={() => setActiveImage(item)}
             className="mb-4 block w-full break-inside-avoid overflow-hidden rounded-xl border border-white/10 bg-[#1B2A4A] text-left"
           >
-            <div className="relative min-h-[220px] bg-gradient-to-br from-[#1B2A4A] to-[#2C5282]">
+            <div className="relative min-h-[220px] bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
               <Image src={item.image} alt={item.alt} width={900} height={700} className="cinematic-image h-auto w-full object-cover" />
             </div>
             <div className="px-4 py-3">
@@ -86,7 +86,7 @@ export function PhotoGrid({ items }: PhotoGridProps) {
               >
                 <X className="h-4 w-4" />
               </button>
-              <div className="relative bg-gradient-to-br from-[#1B2A4A] to-[#2C5282]">
+              <div className="relative bg-linear-to-br from-[#1B2A4A] to-[#2C5282]">
                 <Image
                   src={activeImage.image}
                   alt={activeImage.alt}
@@ -105,3 +105,4 @@ export function PhotoGrid({ items }: PhotoGridProps) {
     </>
   );
 }
+

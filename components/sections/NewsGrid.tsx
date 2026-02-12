@@ -35,7 +35,7 @@ export function NewsGrid({ articles }: NewsGridProps) {
   return (
     <div className="space-y-12">
       <div>
-        <h2 className="font-[family-name:var(--font-display)] text-3xl uppercase text-white">Featured Stories</h2>
+        <h2 className="font-display text-3xl uppercase text-white">Featured Stories</h2>
         <div className="mt-5 grid gap-5 md:grid-cols-3">
           {featured.map((article) => (
             <Card
@@ -102,3 +102,4 @@ export function NewsGrid({ articles }: NewsGridProps) {
     </div>
   );
 }
+
