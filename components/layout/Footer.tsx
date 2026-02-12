@@ -1,3 +1,5 @@
+"use client";
+
 import { type FormEvent, useState } from "react";
 import Link from "next/link";
 import { Facebook, Instagram, Play, Tv, Youtube } from "lucide-react";
