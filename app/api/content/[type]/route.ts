@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {
   galleryItems,
   keyInitiatives,
@@ -19,12 +19,31 @@ type ApiCollection = {
   livestream: LivestreamEvent[];
 };
 
+const knownTypes = new Set<keyof ApiCollection>([
+  "news",
+  "priorities",
+  "gallery",
+  "key-initiatives",
+  "videos",
+  "livestream",
+]);
+
+function isKnownType(type: string): type is keyof ApiCollection {
+  return knownTypes.has(type as keyof ApiCollection);
+}
+
 export async function GET(
-  _request: Request,
-  { params }: { params: { type: keyof ApiCollection } | Promise<{ type: keyof ApiCollection }> },
+  _request: NextRequest,
+  { params }: { params: Promise<{ type: string }> },
 ) {
   let body: CmsPayload<unknown>;
-  const { type: key } = await params;
+  const { type } = await params;
+
+  if (!isKnownType(type)) {
+    return NextResponse.json({ error: "Unknown content type." }, { status: 404 });
+  }
+
+  const key: keyof ApiCollection = type;
 
   switch (key) {
     case "news":
